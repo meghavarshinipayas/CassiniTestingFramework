@@ -2,6 +2,7 @@ package tst.sample.selenium.testcases;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -42,6 +43,9 @@ public class BasicSeleniumValidations {
 
         WebElement nextBtn = driver.findElement(By.id("login-signin"));
         nextBtn.click();
+//        WebElement errorMessage;
+
+
         WebElement pwdField = null;
         try {
             pwdField = driver.findElement(By.id("login-passwd"));
@@ -50,11 +54,19 @@ public class BasicSeleniumValidations {
             //if not provided, we get Stale Element Reference exception
             driver.findElement(By.id("login-signin")).click();
 
-        } catch (Exception e) {
-            Assert.assertNotNull(pwdField);
+        }catch(Exception e){
+            //validating negative test cases
+            WebElement errorMessage = driver.findElement(By.id("username-error"));
+            String errorMessageText = errorMessage.getText();
+            Assert.assertEquals("Sorry, we don't recognise this email address.",errorMessageText);
+
         }
-        String username = driver.findElement(By.xpath("//a[@id='ysignout']/div[2]")).getText();
-        Assert.assertEquals(username, "firsttestlogin_12");
+
+        if(pwdField != null) {
+            //validating positive test cases
+            String username = driver.findElement(By.xpath("//a[@id='ysignout']/div[2]")).getText();
+            Assert.assertEquals(username, "firsttestlogin_12");
+        }
     }
 
 
