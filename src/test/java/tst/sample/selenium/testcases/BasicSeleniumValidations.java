@@ -88,24 +88,24 @@ public class BasicSeleniumValidations {
         driver.navigate().to("https://finance.yahoo.com/calendar");
 //        driver.get("https://finance.yahoo.com/calendar");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//*[text()='May 29, 2022']"))));
+        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//*[text()='Jun 05, 2022']"))));
         WebElement ele = driver.findElement(By.xpath("//a[@title='Next']//*[name()='svg']"));
         Actions builder = new Actions(driver);
         builder.click(ele).build().perform();
 
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[text()='Jun 05, 2022']")));
-        WebElement cal = driver.findElement(By.xpath("//*[text()='Jun 05, 2022']"));
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[text()='Jun 12, 2022']")));
+        WebElement cal = driver.findElement(By.xpath("//*[text()='Jun 12, 2022']"));
         wait.until(ExpectedConditions.elementToBeClickable(cal));
 
         WebElement eleCalc = driver.findElement(By.xpath("//div[@id='Lead-5-CalEvents-Proxy']//li[4]"));
         String earnings = eleCalc.findElement(By.xpath(".//a[1]")).getText();
-        Assert.assertEquals(earnings,"31 Earnings");
+        Assert.assertEquals(earnings,"6 Earnings");
 
         String stockSplits = eleCalc.findElement(By.xpath(".//a[2]")).getText();
-        Assert.assertEquals(stockSplits, "8 Stock Splits");
+        Assert.assertEquals(stockSplits, "7 Stock Splits");
 
         String ecEvents = eleCalc.findElement(By.xpath(".//a[3]")).getText();
-        Assert.assertEquals(ecEvents, "73 Economic Events");
+        Assert.assertEquals(ecEvents, "76 Economic Events");
 
     }
 
